@@ -5,31 +5,31 @@ const DUMMY_EXPENSES = [
     id: "e1",
     description: "A pair of shoes",
     amount: 59.99,
-    date: new Date("2022-12-19"),
+    date: new Date("2026-06-10"),
   },
   {
     id: "e2",
     description: "A pair of trousers",
     amount: 89.29,
-    date: new Date("2022-12-06"),
+    date: new Date("2026-06-06"),
   },
   {
     id: "e3",
     description: "A t-shirt",
     amount: 19.99,
-    date: new Date("2021-12-14"),
+    date: new Date("2026-06-14"),
   },
   {
     id: "e4",
     description: "A pair of socks",
     amount: 5.49,
-    date: new Date("2021-12-20"),
+    date: new Date("2026-06-20"),
   },
   {
     id: "e5",
     description: "A bunch of bananas",
     amount: 40.99,
-    date: new Date("2021-12-25"),
+    date: new Date("2026-06-25"),
   },
 ];
 
@@ -59,38 +59,35 @@ function expensesReducer(state, action) {
     default:
       return state;
   }
+}
 
-  function ExpensesContextProvider({ children }) {
-    const [expensesState, dispatch] = useReducer(
-      expensesReducer,
-      DUMMY_EXPENSES,
-    );
+function ExpensesContextProvider({ children }) {
+  const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);
 
-    function addExpense(expenseData) {
-      dispatch({ type: "ADD", payload: expenseData });
-    }
-
-    function deleteExpense(id) {
-      dispatch({ type: "DELETE", payload: { id } });
-    }
-
-    function updateExpense(id, expenseData) {
-      dispatch({ type: "UPDATE", payload: { id, data: expenseData } });
-    }
-
-    const value = {
-      expenses: expensesState,
-      addExpense: addExpense,
-      deleteExpense: deleteExpense,
-      updateExpense: updateExpense,
-    };
-
-    return (
-      <ExpensesContext.Provider value={value}>
-        {children}
-      </ExpensesContext.Provider>
-    );
+  function addExpense(expenseData) {
+    dispatch({ type: "ADD", payload: expenseData });
   }
+
+  function deleteExpense(id) {
+    dispatch({ type: "DELETE", payload: { id } });
+  }
+
+  function updateExpense(id, expenseData) {
+    dispatch({ type: "UPDATE", payload: { id, data: expenseData } });
+  }
+
+  const value = {
+    expenses: expensesState,
+    addExpense: addExpense,
+    deleteExpense: deleteExpense,
+    updateExpense: updateExpense,
+  };
+
+  return (
+    <ExpensesContext.Provider value={value}>
+      {children}
+    </ExpensesContext.Provider>
+  );
 }
 
 export { ExpensesContextProvider };
