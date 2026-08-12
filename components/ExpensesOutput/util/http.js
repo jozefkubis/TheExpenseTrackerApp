@@ -3,8 +3,13 @@ import axios from "axios";
 const BACKEND_URL =
   "https://the-expense-tracker-app-a47e9-default-rtdb.europe-west1.firebasedatabase.app";
 
-export function storeExpense(expenseData) {
-  return axios.post(`${BACKEND_URL}/expenses.json`, expenseData);
+export async function storeExpense(expenseData) {
+  const response = await axios.post(
+    `${BACKEND_URL}/expenses.json`,
+    expenseData,
+  );
+  const id = response.data.name; // Firebase returns the generated id in the "name" field
+  return id;
 }
 
 export async function fetchExpenses() {
@@ -12,7 +17,6 @@ export async function fetchExpenses() {
 
   const expenses = [];
 
-  console.log("Response data:", response.data); // Log the response data for debugging
   for (const key in response.data) {
     const expenseObj = {
       id: key,
@@ -23,4 +27,12 @@ export async function fetchExpenses() {
     expenses.push(expenseObj);
   }
   return expenses;
+}
+
+export function updateExpense(id, expenseData) {
+  return axios.put(`${BACKEND_URL}/expenses/${id}.json`, expenseData);
+}
+
+export function deleteExpense(id) {
+  return axios.delete(`${BACKEND_URL}/expenses/${id}.json`);
 }

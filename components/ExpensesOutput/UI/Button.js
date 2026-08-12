@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../../constans/styles";
-
 export default function Button({ children, onPress, mode, style }) {
   return (
     <View style={style}>
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 12,
     margin: 4,
-    backgroundColor: GlobalStyles.colors.primary500,
+    backgroundColor: GlobalStyles.colors.primary700,
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "center",
